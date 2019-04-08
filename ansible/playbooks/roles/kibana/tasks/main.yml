@@ -1,0 +1,68 @@
+---
+#
+# Installing Kibana
+#
+
+- name: Add Elasticsearch apt key
+  apt_key:
+   url: "https://packages.elastic.co/GPG-KEY-elasticsearch"
+   state: present
+
+# Add the Elasticsearch apt repo. For versions 6 of the stack - use '6.x-prerelease':
+
+- name: Adding Elasticsearch repo
+  apt_repository:
+   repo: deb https://artifacts.elastic.co/packages/6.x/apt stable main
+   state: present
+
+# Install Kibana
+- name: Install Kibana with apt
+  apt:
+   name: kibana
+   update_cache: yes
+
+# Configurations
+
+- name: Creates logs directory
+  file:
+    path: /var/log/kibana
+    state: directory
+    mode: 0777
+    recurse: yes
+
+- name: Creates pid directory
+  file:
+    path: /var/log/kibana
+    state: directory
+    mode: 0777
+    recurse: yes
+
+- name: Updating the config file to allow outside access
+  lineinfile:
+   destfile: /etc/kibana/kibana.yml
+   regexp: 'server.host:'
+   line: 'server.host: 0.0.0.0'
+
+- name: Defining server port
+  lineinfile:
+   destfile: /etc/kibana/kibana.yml
+   regexp: 'server.port:'
+   line: 'server.port: 5601'
+
+- name: Defining Elasticsearch URL
+  lineinfile:
+   destfile: /etc/kibana/kibana.yml
+   regexp: 'elasticsearch.url:'
+   line: "elasticsearch.url: 'http://{{ hostvars[groups['tag_Role_elasticsearch_master'][0]]['ansible_ens3']['ipv4']['address'] }}:9200'"
+
+# Starting Kibana
+
+- name: Restart Kibana
+  service:
+   name: kibana
+   state: restarted
+
+- name: Starting Kibana
+  service:
+   name: kibana
+   state: started

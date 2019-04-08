@@ -1,0 +1,11 @@
+
+- name: Install python for Ansible
+  raw: test -e /usr/bin/python || (apt -y update && apt install -y python-minimal)
+  changed_when: False
+- setup:
+
+
+- name: update apt
+  apt:
+    update_cache: yes
+    cache_valid_time: 3600

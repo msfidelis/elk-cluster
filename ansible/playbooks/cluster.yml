@@ -1,0 +1,42 @@
+# Install Python and Ansible Dependencies on Servers
+- hosts: tag_Workload_elk_servers
+  gather_facts: False
+  remote_user: ubuntu
+  become: yes
+  become_user: root
+  roles:
+    - { role: bootstrap }
+    - { role: java }
+
+# Configure Elasticsearch Nodes
+- hosts: tag_Role_elasticsearch_*
+  remote_user: ubuntu
+  become: yes
+  become_user: root
+  roles:
+    - { role: elasticsearch }
+
+- hosts: tag_Role_elasticsearch_master
+  remote_user: ubuntu
+  become: yes
+  become_user: root
+  roles:
+    - { role: master }
+  # - { role: metricbeat }
+
+
+- hosts: tag_Role_elasticsearch_node
+  remote_user: ubuntu
+  become: yes
+  become_user: root
+  gather_facts: True # ens3
+  roles:
+    - { role: node }
+
+
+- hosts: tag_Role_kibana
+  remote_user: ubuntu
+  become: yes
+  become_user: root
+  roles:
+    - { role: kibana }
