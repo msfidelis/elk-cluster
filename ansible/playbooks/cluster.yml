@@ -15,6 +15,7 @@
   become_user: root
   roles:
     - { role: elasticsearch }
+    - { role: metricbeat }
 
 - hosts: tag_Role_elasticsearch_master
   remote_user: ubuntu
@@ -22,7 +23,6 @@
   become_user: root
   roles:
     - { role: master }
-  # - { role: metricbeat }
 
 
 - hosts: tag_Role_elasticsearch_node

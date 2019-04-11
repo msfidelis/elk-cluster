@@ -1,5 +1,5 @@
 resource "aws_instance" "es-nodes" {
-    count = 1
+    count = 2
     ami = "ami-0a313d6098716f372"
     instance_type = "c4.large"
 
