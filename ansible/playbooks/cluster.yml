@@ -24,7 +24,6 @@
   roles:
     - { role: master }
 
-
 - hosts: tag_Role_elasticsearch_node
   remote_user: ubuntu
   become: yes
@@ -33,10 +32,16 @@
   roles:
     - { role: node }
 
-
 - hosts: tag_Role_kibana
   remote_user: ubuntu
   become: yes
   become_user: root
   roles:
     - { role: kibana }
+
+- hosts: tag_Role_apm
+  remote_user: ubuntu
+  become: yes
+  become_user: root
+  roles:
+    - { role: apm }

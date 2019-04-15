@@ -1,0 +1,42 @@
+- name: Add Elasticsearch apt key
+  apt_key:
+   url: "https://packages.elastic.co/GPG-KEY-elasticsearch"
+   state: present
+
+- name: update apt
+  apt:
+    update_cache: yes
+    cache_valid_time: 3600
+
+- name: Install HTTPS transport package
+  apt:
+   name: apt-transport-https
+   update_cache: yes
+
+- name: add apm-server apt repository
+  apt_repository:
+    repo: 'deb https://artifacts.elastic.co/packages/7.x/apt stable main' 
+    state: present
+    filename: elastic-7.x.list
+    update_cache: yes
+
+- name: Install Elasticsearch APM server
+  apt:
+   name: apm-server
+   update_cache: yes
+
+- name: Ensure APM Server is started and enabled on boot.
+  service:
+    name: "apm-server"
+    state: started
+    enabled: yes
+
+- name: Copy apm-server.yml
+  template:
+    src: apm-server.yml.j2
+    dest: /etc/apm-server/apm-server.yml
+
+- name: Restart APM Server
+  service:
+   name: apm-server
+   state: restarted

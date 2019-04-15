@@ -1,4 +1,4 @@
-resource "aws_instance" "es-kibana" {
+resource "aws_instance" "es-apm" {
     count = 1
     ami = "ami-0a313d6098716f372"
     instance_type = "c4.large"
@@ -17,8 +17,8 @@ resource "aws_instance" "es-kibana" {
     }
 
     tags {
-        Name        = "${var.cluster_name}-elasticsearch-kibana"
+        Name        = "${var.cluster_name}-elasticsearch-apm"
         Workload    = "elk_servers"
-        Role        = "kibana"
+        Role        = "apm"
     }
 }
