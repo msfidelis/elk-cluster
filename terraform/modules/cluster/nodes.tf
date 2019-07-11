@@ -23,13 +23,6 @@ resource "aws_instance" "es_nodes_a" {
     }
 }
 
-resource "aws_lb_target_group_attachment" "nodes_a" {
-    count = "${aws_instance.es_nodes_a.count}"
-    target_group_arn = "${aws_alb_target_group.elasticsearch_target_group.arn}"
-    target_id        = "${element(split(",", join(",", aws_instance.es_nodes_a.*.id)), count.index)}"
-    port             = 9200
-}
-
 resource "aws_instance" "es_nodes_b" {
     count = 1
     ami = "ami-0a313d6098716f372"
@@ -53,6 +46,38 @@ resource "aws_instance" "es_nodes_b" {
         Workload    = "elk_servers"
         Role        = "elasticsearch_node"
     }
+}
+
+resource "aws_alb_target_group" "elasticsearch_target_group" {
+
+    name        = "${var.cluster_name}-es-trg"
+    port        = "9200"
+    protocol    = "HTTP"
+    vpc_id      = "${var.vpc_id}"
+
+    target_type = "instance"
+
+    lifecycle { create_before_destroy = true }
+
+    health_check {
+        healthy_threshold   = 3
+        unhealthy_threshold = 10
+        timeout             = 5
+        interval            = 30
+        matcher             = "200"
+        path                = "/"
+        port                = "9200"
+    }
+
+    depends_on = ["aws_alb.es_alb"]
+
+}
+
+resource "aws_lb_target_group_attachment" "nodes_a" {
+    count = "${aws_instance.es_nodes_a.count}"
+    target_group_arn = "${aws_alb_target_group.elasticsearch_target_group.arn}"
+    target_id        = "${element(split(",", join(",", aws_instance.es_nodes_a.*.id)), count.index)}"
+    port             = 9200
 }
 
 resource "aws_lb_target_group_attachment" "nodes_b" {
