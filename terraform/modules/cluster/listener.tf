@@ -33,3 +33,15 @@ resource "aws_alb_listener" "apm" {
     type             = "forward"
   }
 }
+
+resource "aws_alb_listener" "logstash" {
+  load_balancer_arn = "${aws_alb.es_alb.arn}"
+  port              = 5044
+  protocol          = "HTTP"
+  depends_on        = ["aws_alb_target_group.logstash_target_group"]
+
+  default_action {
+    target_group_arn = "${aws_alb_target_group.logstash_target_group.arn}"
+    type             = "forward"
+  }
+}
