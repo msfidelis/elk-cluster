@@ -21,3 +21,29 @@ variable "aws_key_path" {
   description = "key_path"
   default     = "~/.ssh/id_rsa.pub"
 }
+
+variable "ip_whitelist" {
+  type        = "list"
+  description = "whitelist for kibana"
+  default     = ["0.0.0.0/0"]
+}
+
+variable "nodes_instance_type" {
+  description = "Instance type for nodes"
+  default     = "c4.large"
+}
+
+variable "kibana_instance_type" {
+  description = "Instance type for kibana"
+  default     = "c4.large"
+}
+
+variable "apm_instance_type" {
+  description = "Instance type for apm"
+  default     = "t3.medium"
+}
+
+variable "logstash_instance_type" {
+  description = "Instance type for logstash"
+  default     = "t3.medium"
+}
