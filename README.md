@@ -1,19 +1,55 @@
-## Simple Elasticsearch Cluster provisioned with Terraform and Ansible 
+<h1 align="center">Welcome to Elasticsearch Cluster 👋</h1>
+<p>
+  <img src="https://img.shields.io/badge/version-v0.1.0-blue.svg?cacheSeconds=2592000" />
+  <a href="https://raj.ninja/elk-cluster/docs">
+    <img alt="Documentation" src="https://img.shields.io/badge/documentation-yes-brightgreen.svg" target="_blank" />
+  </a>
+  <a href="https://github.com/msfidelis/elk-cluster/LICENSE">
+    <img alt="License: MIT" src="https://img.shields.io/badge/License-MIT-yellow.svg" target="_blank" />
+  </a>
+  <a href="https://twitter.com/fidelissauro">
+    <img alt="Twitter: fidelissauro" src="https://img.shields.io/twitter/follow/fidelissauro.svg?style=social" target="_blank" />
+  </a>
+</p>
 
-# Provisioning the infraestrutucture on AWS Cloud
+> Production ready Elasticsearch Cluster provisioned with Terraform and Ansible on AWS Cloud
 
-```
-cd terraform 
+### 🏠 [Homepage](https://raj.ninja/elk-cluster)
+
+## Install
+
+```sh
 terraform init
+```
+
+## Usage
+
+```sh
 terraform apply
-```
 
-
-# Configure machines 
-
-```
-cd ansible 
 ansible-playbook playbooks/cluster.yml
 ```
 
-# WIP 
+## Author
+
+👤 **Matheus Fidelis**
+
+* Twitter: [@fidelissauro](https://twitter.com/fidelissauro)
+* Github: [@msfidelis](https://github.com/msfidelis)
+* Email: <matheus@nanoshots.com.br>
+
+## 🤝 Contributing
+
+Contributions, issues and feature requests are welcome!<br />Feel free to check [issues page](https://github.com/msfidelis/elk-cluster/issues).
+
+## Show your support
+
+Give a ⭐️ if this project helped you!
+
+## 📝 License
+
+Copyright © 2019 [Matheus Fidelis](https://github.com/msfidelis).<br />
+This project is [MIT](https://github.com/msfidelis/elk-cluster/LICENSE) licensed.
+
+***
+_This README was generated with ❤️ by [readme-md-generator](https://github.com/kefranabg/readme-md-generator)_

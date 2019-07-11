@@ -1,7 +1,8 @@
-resource "aws_instance" "es_kibana" {
+resource "aws_instance" "es_apm" {
     count = 1
+
     ami             = "ami-0a313d6098716f372"
-    instance_type   = "${var.kibana_instance_type}"
+    instance_type   = "${var.apm_instance_type}"
     subnet_id       = "${var.public_subnet_1a}"
 
     associate_public_ip_address = true
@@ -16,16 +17,16 @@ resource "aws_instance" "es_kibana" {
     }
 
     tags {
-        Name        = "${var.cluster_name}-elasticsearch-kibana"
+        Name        = "${var.cluster_name}-elasticsearch-apm"
         Workload    = "elk_servers"
-        Role        = "kibana"
+        Role        = "apm"
     }
 }
 
-resource "aws_alb_target_group" "kibana_target_group" {
+resource "aws_alb_target_group" "apm_target_group" {
 
-    name        = "${var.cluster_name}-kibana-trg"
-    port        = "5601"
+    name        = "${var.cluster_name}-apm-trg"
+    port        = 8200
     protocol    = "HTTP"
     vpc_id      = "${var.vpc_id}"
     target_type = "instance"
@@ -39,16 +40,16 @@ resource "aws_alb_target_group" "kibana_target_group" {
         interval            = 30
         matcher             = "200"
         path                = "/"
-        port                = 5601
+        port                = 8200
     }
 
     depends_on = ["aws_alb.es_alb"]
 
 }
 
-resource "aws_lb_target_group_attachment" "kibana" {
-    count = "${aws_instance.es_kibana.count}"
-    target_group_arn = "${aws_alb_target_group.kibana_target_group.arn}"
+resource "aws_lb_target_group_attachment" "apm" {
+    count = "${aws_instance.es_apm.count}"
+    target_group_arn = "${aws_alb_target_group.apm_target_group.arn}"
     target_id        = "${element(split(",", join(",", aws_instance.es_kibana.*.id)), count.index)}"
-    port             = 5601
+    port             = 8200
 }
