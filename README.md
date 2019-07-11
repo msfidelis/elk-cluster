@@ -19,14 +19,24 @@
 ## Install
 
 ```sh
-terraform init
+cd terraform; terraform init
 ```
 
 ## Usage
 
+* Edit `terraform/variables.tf` and edit some configs like instance type, IP's whitelists, etc
+
+
+* Apply Terraform to create infraestrutucture on AWS
+
 ```sh
 terraform apply
+```
 
+* Run ansible playbook to configure cluster components
+
+
+```sh
 ansible-playbook playbooks/cluster.yml
 ```
 
