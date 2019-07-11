@@ -32,10 +32,11 @@ ansible-playbook playbooks/cluster.yml
 
 ## Author
 
-👤 **Matheus Fidelis <matheus@nanoshots.com.br>**
+👤 **Matheus Fidelis**
 
 * Twitter: [@fidelissauro](https://twitter.com/fidelissauro)
 * Github: [@msfidelis](https://github.com/msfidelis)
+* Email: <matheus@nanoshots.com.br>
 
 ## 🤝 Contributing
 
