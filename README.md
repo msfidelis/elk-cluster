@@ -1,7 +1,7 @@
-<h1 align="center">Welcome to elk-cluster 👋</h1>
+<h1 align="center">Welcome to Elasticsearch Cluster 👋</h1>
 <p>
   <img src="https://img.shields.io/badge/version-v0.1.0-blue.svg?cacheSeconds=2592000" />
-  <a href="raj.ninja/elk-cluster/docs">
+  <a href="https://raj.ninja/elk-cluster/docs">
     <img alt="Documentation" src="https://img.shields.io/badge/documentation-yes-brightgreen.svg" target="_blank" />
   </a>
   <a href="https://github.com/msfidelis/elk-cluster/LICENSE">
@@ -14,7 +14,7 @@
 
 > Production ready Elasticsearch Cluster provisioned with Terraform and Ansible on AWS Cloud
 
-### 🏠 [Homepage](raj.ninja/elk-cluster)
+### 🏠 [Homepage](https://raj.ninja/elk-cluster)
 
 ## Install
 
