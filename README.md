@@ -16,7 +16,7 @@
   <img src=".github/images/elk-stack.png" />
 </div>
 
-> Production ready Elasticsearch Cluster provisioned with Terraform and Ansible on AWS Cloud
+> Production ready elasticsearch cluster provisioned with Terraform and Ansible on AWS Cloud
 
 ### 🏠 [Homepage](https://raj.ninja/elk-cluster)
 
