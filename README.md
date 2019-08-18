@@ -13,7 +13,7 @@
 </p>
 
 <div align="center">
-  ![Architecture](.github/images/elk-stack.png)
+  <img src=".github/images/elk-stack.png" />
 </div>
 
 > Production ready Elasticsearch Cluster provisioned with Terraform and Ansible on AWS Cloud
