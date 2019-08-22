@@ -1,4 +1,4 @@
-<h1 align="center">Welcome to Elasticsearch Cluster 👋</h1>
+<h1 align="center">Welcome to Elasticsearch Cluster :bar_chart: :chart_with_upwards_trend: :chart_with_downwards_trend: </h1>
 <p>
   <img src="https://img.shields.io/badge/version-v0.1.0-blue.svg?cacheSeconds=2592000" />
   <a href="https://raj.ninja/elk-cluster/docs">
