@@ -16,6 +16,12 @@
   <img src=".github/images/elk-stack.png" />
 </div>
 
+# Architecture
+
+<div align="center">
+  <img src=".github/images/elk.png" />
+</div>
+
 > Production ready elasticsearch cluster provisioned with Terraform and Ansible on AWS Cloud
 
 
