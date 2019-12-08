@@ -4,8 +4,7 @@ resource "aws_subnet" "private_subnet_cluster_1a" {
   cidr_block              = "12.0.32.0/20"
   availability_zone       = "us-east-1a"
 
-  tags =
-  {
+  tags = {
     Name = "${var.cluster_name}-private-subnet-1a"
   }
 }
@@ -16,8 +15,7 @@ resource "aws_subnet" "private_subnet_cluster_1b" {
   cidr_block              = "12.0.48.0/20"
   availability_zone       = "us-east-1b"
 
-  tags = 
-  {
+  tags = {
      Name = "${var.cluster_name}-private-subnet-1b"
   }
 }

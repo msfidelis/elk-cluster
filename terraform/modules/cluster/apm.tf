@@ -1,5 +1,4 @@
 resource "aws_instance" "es_apm" {
-    count = 1
 
     ami             = "ami-0a313d6098716f372"
     instance_type   = "${var.apm_instance_type}"
@@ -16,7 +15,7 @@ resource "aws_instance" "es_apm" {
         volume_type = "standard"
     }
 
-    tags {
+    tags = {
         Name        = "${var.cluster_name}-elasticsearch-apm"
         Workload    = "elk_servers"
         Role        = "apm"
@@ -48,8 +47,7 @@ resource "aws_alb_target_group" "apm_target_group" {
 }
 
 resource "aws_lb_target_group_attachment" "apm" {
-    count = "${aws_instance.es_apm.count}"
     target_group_arn = "${aws_alb_target_group.apm_target_group.arn}"
-    target_id        = "${element(split(",", join(",", aws_instance.es_kibana.*.id)), count.index)}"
+    target_id        =  aws_instance.es_kibana.id
     port             = 8200
 }

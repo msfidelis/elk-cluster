@@ -1,5 +1,5 @@
 resource "aws_instance" "es_logstash" {
-    count = 1
+
     ami             = "ami-0a313d6098716f372"
     instance_type   = "${var.logstash_instance_type}"
     subnet_id       = "${var.public_subnet_1a}"
@@ -15,7 +15,7 @@ resource "aws_instance" "es_logstash" {
         volume_type = "standard"
     }
 
-    tags {
+    tags = {
         Name        = "${var.cluster_name}-elasticsearch-logstash"
         Workload    = "elk_servers"
         Role        = "logstash"
@@ -47,8 +47,7 @@ resource "aws_alb_target_group" "logstash_target_group" {
 }
 
 resource "aws_lb_target_group_attachment" "logstash" {
-    count = "${aws_instance.es_logstash.count}"
-    target_group_arn = "${aws_alb_target_group.logstash_target_group.arn}"
-    target_id        = "${element(split(",", join(",", aws_instance.es_logstash.*.id)), count.index)}"
+    target_group_arn = aws_alb_target_group.logstash_target_group.arn
+    target_id        = aws_instance.es_logstash.id
     port             = 5044
 }

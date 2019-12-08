@@ -7,8 +7,7 @@ resource "aws_subnet" "public_subnet_cluster_1a" {
   map_public_ip_on_launch = true
   availability_zone       = "${var.aws_region}a"
 
-  tags =
-  {
+  tags = {
     Name = "${var.cluster_name}-public-subnet-1a"
     Tier = "public"
     Workload = "k8s"
@@ -22,8 +21,7 @@ resource "aws_subnet" "public_subnet_cluster_1b" {
   map_public_ip_on_launch = true
   availability_zone       = "${var.aws_region}b"
 
-  tags =
-  {
+  tags = {
      Name = "${var.cluster_name}-public-subnet-1b"
      Tier = "public"
      Workload = "k8s"

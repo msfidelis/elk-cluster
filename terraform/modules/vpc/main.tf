@@ -3,19 +3,17 @@ resource "aws_vpc" "cluster_vpc" {
   cidr_block = "12.0.0.0/16"
   enable_dns_support = true
   enable_dns_hostnames = true
-  tags =
-    {
+  tags = {
       Name = "${var.cluster_name}-vpc"
-    }
+  }
 }
 
 # Internet Gateway
 resource "aws_internet_gateway" "gw" {
   vpc_id = "${aws_vpc.cluster_vpc.id}"
-  tags =
-    {
-      Name = "${var.cluster_name}-internet-gateway"
-    }
+  tags = {
+    Name = "${var.cluster_name}-internet-gateway"
+  }
 }
 
 # Route to Internet Gateway

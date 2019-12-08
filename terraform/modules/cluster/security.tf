@@ -73,7 +73,7 @@ resource "aws_security_group" "cluster_sg" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 
-  tags {
+  tags = {
     Name = "${var.cluster_name}-cluster-sg"
   }
 
@@ -132,7 +132,7 @@ resource "aws_security_group" "alb_sg" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 
-  tags {
+  tags = {
     Name = "${var.cluster_name}-alb-sg"
   }
 

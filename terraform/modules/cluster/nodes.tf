@@ -1,12 +1,10 @@
 resource "aws_instance" "es_nodes_a" {
-    count = 1
+
     ami = "ami-0a313d6098716f372"
     instance_type = "${var.nodes_instance_type}"
 
     subnet_id = "${var.public_subnet_1a}"
-
     associate_public_ip_address = true
-
     vpc_security_group_ids = ["${aws_security_group.cluster_sg.id}"]
 
     key_name = "${var.cluster_key}"
@@ -16,7 +14,7 @@ resource "aws_instance" "es_nodes_a" {
         volume_type = "standard"
     }
 
-    tags {
+    tags = {
         Name        = "${var.cluster_name}-elasticsearch-node"
         Workload    = "elk_servers"
         Role        = "elasticsearch_node"
@@ -24,24 +22,23 @@ resource "aws_instance" "es_nodes_a" {
 }
 
 resource "aws_instance" "es_nodes_b" {
-    count = 1
     ami = "ami-0a313d6098716f372"
-    instance_type = "${var.nodes_instance_type}"
+    instance_type = var.nodes_instance_type
 
-    subnet_id = "${var.public_subnet_1b}"
+    subnet_id = var.public_subnet_1b
 
     associate_public_ip_address = true
 
-    vpc_security_group_ids = ["${aws_security_group.cluster_sg.id}"]
+    vpc_security_group_ids = [ aws_security_group.cluster_sg.id ]
 
-    key_name = "${var.cluster_key}"
+    key_name = var.cluster_key
 
     root_block_device {
         volume_size = "60"
         volume_type = "standard"
     }
 
-    tags {
+    tags = {
         Name        = "${var.cluster_name}-elasticsearch-node"
         Workload    = "elk_servers"
         Role        = "elasticsearch_node"
@@ -53,7 +50,7 @@ resource "aws_alb_target_group" "elasticsearch_target_group" {
     name        = "${var.cluster_name}-es-trg"
     port        = "9200"
     protocol    = "HTTP"
-    vpc_id      = "${var.vpc_id}"
+    vpc_id      = var.vpc_id
 
     target_type = "instance"
 
@@ -69,20 +66,18 @@ resource "aws_alb_target_group" "elasticsearch_target_group" {
         port                = "9200"
     }
 
-    depends_on = ["aws_alb.es_alb"]
+    depends_on = [ "aws_alb.es_alb" ]
 
 }
 
 resource "aws_lb_target_group_attachment" "nodes_a" {
-    count = "${aws_instance.es_nodes_a.count}"
-    target_group_arn = "${aws_alb_target_group.elasticsearch_target_group.arn}"
-    target_id        = "${element(split(",", join(",", aws_instance.es_nodes_a.*.id)), count.index)}"
+    target_group_arn = aws_alb_target_group.elasticsearch_target_group.arn
+    target_id        = aws_instance.es_nodes_a.id
     port             = 9200
 }
 
 resource "aws_lb_target_group_attachment" "nodes_b" {
-    count = "${aws_instance.es_nodes_b.count}"
-    target_group_arn = "${aws_alb_target_group.elasticsearch_target_group.arn}"
-    target_id        = "${element(split(",", join(",", aws_instance.es_nodes_b.*.id)), count.index)}"
+    target_group_arn = aws_alb_target_group.elasticsearch_target_group.arn
+    target_id        = aws_instance.es_nodes_b.id
     port             = 9200
 }

@@ -11,7 +11,7 @@ resource "aws_alb" "es_alb" {
 
     idle_timeout    = 600
 
-    tags {
+    tags = {
         Name            = "${var.cluster_name}-alb"
     }
 
