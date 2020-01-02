@@ -5,7 +5,8 @@
 apm-server:
   # Defines the host and port the server is listening on.  use "unix:/path/to.sock" to listen on a unix domain socket.
   host: "0.0.0.0:8200"
-
+  secret_token: ˜xxVpmQB2HMzCL9PgBHVrnxjNXXw5J7bd79DFm6sjBJR5HPXDhcF8MSb3vv4bpg44˜
+  
   # Maximum permitted size in bytes of a request's header accepted by the server to be processed.
   #max_header_size: 1048576
 
@@ -181,8 +182,8 @@ apm-server:
 # These settings can be adjusted to load your own template or overwrite existing ones.
 
 # Set to false to disable template loading.
-#setup.template.enabled: true
-
+setup.template.enabled: true
+{% for host in groups['tag_Role_kibana'] %} setup.kibana.host "{{ hostvars[host]['ansible_ens3']['ipv4']['address'] }}" {% endfor %}
 # Template name. By default the template name is "apm-%{[observer.version]}"
 # The template name and pattern has to be set in case the elasticsearch index pattern is modified.
 #setup.template.name: "apm-%{[observer.version]}"

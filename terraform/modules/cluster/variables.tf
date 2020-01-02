@@ -6,6 +6,8 @@ variable "cluster_name" {}
 
 variable "cluster_key" {}
 
+variable "aws_ami_base" {}
+
 variable "public_subnet_1a" {}
 
 variable "public_subnet_1b" {}

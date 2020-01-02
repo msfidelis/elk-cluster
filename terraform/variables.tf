@@ -22,6 +22,11 @@ variable "aws_key_path" {
   default     = "~/.ssh/id_rsa.pub"
 }
 
+variable "aws_ami_base" {
+  description = "AMI base"
+  default = "ami-0a313d6098716f372"
+}
+
 variable "ip_whitelist" {
   type        = "list"
   description = "whitelist for kibana"

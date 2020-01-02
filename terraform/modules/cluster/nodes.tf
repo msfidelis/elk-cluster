@@ -1,6 +1,6 @@
 resource "aws_instance" "es_nodes_a" {
 
-    ami = "ami-0a313d6098716f372"
+    ami = var.aws_ami_base
     instance_type = "${var.nodes_instance_type}"
 
     subnet_id = "${var.public_subnet_1a}"
